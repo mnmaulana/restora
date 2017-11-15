@@ -26,11 +26,12 @@ def richardson_lucy(image, psf, iterations=50):
     psf_mirror = psf[::-1, ::-1]
 
     for _ in range(iterations):
+        in_t = time.time()
         relative_blur = image / convolve(im_deconv, psf, 'same')
         im_deconv *= convolve(relative_blur, psf_mirror, 'same')
         #im_deconv[im_deconv == np.inf] = 0
         #im_deconv = np.nan_to_num(im_deconv)
-        print("Progress {} / {} " .format(_+1,iterations))
+        print("Progress {} / {} in {} s" .format(_+1,iterations,time.time()-in_t))
     
     return im_deconv
 
@@ -43,7 +44,7 @@ def psf_moffat(A,k,l,sigma,beta):
 
 t_in = time.time()
 
-data = fits.open('/home/mnm/Documents/Course/finalproject/Data_Evan_Schmidt_2013/Omega_centauri_Schmidt/ocenb-4.FIT')
+data = fits.open('ocenb-4.fits')
 
 image = data[0].data
 header = data[0].header
@@ -72,7 +73,7 @@ print("PSF OK!")
 #print(model.shape)
 #img_conv = convolve(img,model,'same')
 print("Entering restoration")
-deconv = richardson_lucy(image, psf ,10)
+deconv = richardson_lucy(image, psf ,20)
 print("Restoration done! \nPlotting....")
 '''
 pl.figure()
