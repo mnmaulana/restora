@@ -6,7 +6,7 @@ import numpy as np
 
 
 #np.set_printoptions(precision=0)
-X, Y, radius, bg, A, beta, sigma = np.loadtxt('ocenb-4.csv', usecols=(0,1,4,7,8,11,13), unpack=True)
+X, Y, radius, bg, A, beta, sigma = np.loadtxt('data/ocenb-4.csv', usecols=(0,1,4,7,8,11,13), unpack=True)
 
 #Nilai rata-rata
 rad_ = np.mean(radius)

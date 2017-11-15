@@ -44,7 +44,7 @@ def psf_moffat(A,k,l,sigma,beta):
 
 t_in = time.time()
 
-data = fits.open('ocenb-4.fits')
+data = fits.open('data/ocenb-4.fits')
 
 image = data[0].data
 header = data[0].header
@@ -57,35 +57,35 @@ header = data[0].header
 print("FITS OK!")
 #img = fits.read('/home/mnm/Documents/Course/finalproject/Data_Evan_Schmidt_2013/Omega_centauri_Schmidt/ocenb-4.FIT')
 
-r = 12
+r = 23.
 
 k = np.arange(-r,r+1)
 l = np.arange(-r,r+1)
 k,l = np.meshgrid(k,l)
 
-A = 1088.92
-bg = 1811.56
-sigma = 2.71
-beta = 6.37
+A = 1095.61
+bg = 1798.77
+sigma = 3.85
+beta = 5.08
 
 psf = psf_moffat(A,k,l,sigma,beta)
 print("PSF OK!")
 #print(model.shape)
 #img_conv = convolve(img,model,'same')
 print("Entering restoration")
-deconv = richardson_lucy(image, psf ,20)
+deconv = richardson_lucy(image, psf ,10)
 print("Restoration done! \nPlotting....")
-'''
+
+
 pl.figure()
-pl.subplot(221)
-pl.imshow(img,cmap='gray',label="ideal image")
-pl.subplot(222)
-pl.imshow(model,cmap='gray',label="psf model")
-pl.subplot(223)
+pl.subplot(131)
+pl.imshow(image,cmap='gray',label="Original Image")
+pl.subplot(132)
+pl.imshow(psf,cmap='gray',label="PSF")
+#pl.subplot(223)
 #pl.imshow(img_conv,cmap='gray',label="degradage image")
-pl.subplot(224)
-pl.imshow(deconv,cmap='gray',label="restored image")
-'''
+pl.subplot(133)
+pl.imshow(deconv,cmap='gray',label="Restored Image")
 
 
 #x = np.median(k)
@@ -93,12 +93,12 @@ pl.imshow(deconv,cmap='gray',label="restored image")
 #moffat = psf_moffat(A,k,l,sigma,beta)
 print("CPU time = ", time.time() - t_in)
 
-pl.figure(0)
-pl.imshow(psf, cmap='gray')
-pl.figure(1)
-pl.imshow(image, cmap='gray')
-pl.figure(2)
-pl.imshow(deconv, cmap='gray')
+#pl.figure(0)
+#pl.imshow(psf, cmap='gray')
+#pl.figure(1)
+#pl.imshow(image, cmap='gray')
+#pl.figure(2)
+#pl.imshow(deconv, cmap='gray')
 
 #gauss = psf_gauss(A,k,l,sigma)
 """
