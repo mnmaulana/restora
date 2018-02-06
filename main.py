@@ -39,8 +39,12 @@ def richardson_lucy(image, psf, iterations=50):
 #def psf_gauss(A,k,l,sigma): 
 #    return A*np.exp(-((k-x)**2 + (l-y)**2)/(2*sigma**2))
     
+def readpar():
+    return 2
+
 def psf_moffat(A,k,l,sigma,beta):
-    return (A/(1+((k*k + l*l)/(sigma*sigma)))**beta)
+    var =  A/(1+((k*k + l*l)/(sigma*sigma)))**beta
+    return var
 
 t_in = time.time()
 
@@ -73,7 +77,7 @@ print("PSF OK!")
 #print(model.shape)
 #img_conv = convolve(img,model,'same')
 print("Entering restoration")
-deconv = richardson_lucy(image, psf ,10)
+deconv = richardson_lucy(image, psf ,1)
 print("Restoration done! \nPlotting....")
 
 

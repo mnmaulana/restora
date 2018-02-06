@@ -26,3 +26,30 @@ dsigma = np.std(sigma)
 print("dR = {} \ndBG = {} \ndA = {} \ndbeta = {} \ndsigma = {} \n" .format(drad,dbg,dA,dbeta,dsigma))
 
 print(time.clock())
+
+"""
+#MSE
+def mse(data):
+    error = []
+    K, M, N = data.shape
+    
+    for i in range(1,K):
+        error.append(np.sum((allimg[0]-allimg[i])**2)/(M*N))
+    return error
+
+def dmse(data):
+    error = []
+    K, M, N = data.shape
+    
+    for i in range(1,K):
+        error.append(2*np.sum((allimg[0]-allimg[i]))/(M*N))
+    return error
+    
+def mse2(data):
+    error = []
+    K, M, N = data.shape
+    
+    for i in range(1,K):
+        error.append(np.sum(abs(allimg[i-1]-allimg[i]))/np.sum(allimg[i-1]))
+    return error
+"""
